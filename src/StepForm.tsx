@@ -9,9 +9,9 @@ const content = (
 );
 
 const steps = [
-  { label: "Step 1", content },
-  { label: "Step 2", content },
-  { label: "Step 3", content },
+  { label: "Name", content },
+  { label: "Residential Address", content },
+  { label: "Voting", content },
 ];
 
 const StepForm = () => {

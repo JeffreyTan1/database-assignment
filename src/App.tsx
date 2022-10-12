@@ -38,7 +38,9 @@ export const App = () => (
         <ColorModeSwitcher />
       </Flex>
 
-      <StepFrom />
+      <Box p={14}>
+        <StepFrom />
+      </Box>
     </Box>
   </ChakraProvider>
 );
