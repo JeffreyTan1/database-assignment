@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
   ChakraProvider,
   Box,
@@ -16,6 +15,7 @@ export const App = () => (
     <Box textAlign="center" fontSize="xl">
       <Grid minH="100vh" p={3}>
         <ColorModeSwitcher justifySelf="flex-end" />
+        
         <VStack spacing={8}>
           <Text>
             Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
