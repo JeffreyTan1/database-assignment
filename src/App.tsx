@@ -11,16 +11,20 @@ import {
   extendTheme,
 } from "@chakra-ui/react";
 import { StepsStyleConfig as Steps } from "chakra-ui-steps";
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import StepFrom from "./StepForm";
-
+import { useState } from "react";
+import { ColorModeSwitcher } from "./components/ColorModeSwitcher"
+import StepFrom from "./components/StepForm";
 
 const theme = extendTheme({
   components: {
     Steps,
   },
 });
-export const App = () => (
+
+const App = () => {
+  const [stepFormRenderCount, setStepFormRenderCount] = useState(0);
+
+  return (
   <ChakraProvider theme={theme}>
     <Box mx={"auto"} maxW={"container.xl"} my={10} px={10}>
       <Flex
@@ -39,8 +43,10 @@ export const App = () => (
       </Flex>
 
       <Box p={14}>
-        <StepFrom />
+        <StepFrom key={stepFormRenderCount} setRenderCount={setStepFormRenderCount}/>
       </Box>
     </Box>
-  </ChakraProvider>
-);
+  </ChakraProvider>)
+};
+
+export default App;
