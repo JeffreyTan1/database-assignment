@@ -50,7 +50,7 @@ const StepForm = () => {
 
   return (
     <Flex flexDir="column" width="100%">
-      <Steps activeStep={activeStep}>
+      <Steps activeStep={activeStep} labelOrientation="vertical">
         {steps.map(({ label, content }) => (
           <Step label={label} key={label}>
             {content}

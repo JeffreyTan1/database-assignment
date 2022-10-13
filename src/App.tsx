@@ -22,7 +22,7 @@ const theme = extendTheme({
 });
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Box width={"container.xl"} mx={"auto"} my={"10"}>
+    <Box mx={"auto"} maxW={"container.xl"} my={10} px={10}>
       <Flex
         width={"full"}
         justifyContent={"space-between"}
