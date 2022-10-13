@@ -1,23 +1,52 @@
 import { Button, Flex, Text, Box } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
-
-const content = (
-  <Box>
-    {/* <LoremI p={1} /> */}
-    <Text>Content</Text>
-  </Box>
-);
-
-const steps = [
-  { label: "Name", content },
-  { label: "Residential Address", content },
-  { label: "Voting", content },
-];
+import { useFormik } from "formik";
 
 const StepForm = () => {
   const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
     initialStep: 0,
   });
+
+  const nameStepForm = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+    },
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
+  const addressStepForm = useFormik({
+    initialValues: {
+      residentialAddress: "",
+    },
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
+  const voterStepForm = useFormik({
+    initialValues: {
+      voterId: "",
+    },
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+  
+  const content = (
+    <Box>
+      {/* <LoremI p={1} /> */}
+      <Text>Content</Text>
+    </Box>
+  );
+
+  const steps = [
+    { label: "Name", content },
+    { label: "Residential Address", content },
+    { label: "Voting", content },
+  ];
 
   return (
     <Flex flexDir="column" width="100%">
