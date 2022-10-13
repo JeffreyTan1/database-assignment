@@ -1,15 +1,14 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
-import { useFormik } from "formik";
-import TextForm from "./TextForm";
-import VotingForm from "./VotingForm";
+import { useState } from "react";
+import VoterIDForm from "./VoterIDForm";
 
 type Props = {
   setRenderCount: any;
 };
 
 const StepForm = (props: Props) => {
-  const { nextStep, setStep, activeStep } = useSteps({
+  const { nextStep, activeStep } = useSteps({
     initialStep: 0,
   });
 
@@ -17,71 +16,26 @@ const StepForm = (props: Props) => {
     props.setRenderCount((prev: number) => prev + 1);
   };
 
-  const nameFields = [
-    { key: "firstName", label: "First Name" },
-    { key: "lastName", label: "Last Name" },
-  ];
-  const nameFormik = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-      nextStep();
-    },
-  });
+  const [voterIDData, setVoterIDData] = useState(null);
 
-  const residentialAddressFields = [
-    { key: "residentialAddress", label: "Residential Address" },
-  ];
-  const residentialAddressFormik = useFormik({
-    initialValues: {
-      residentialAddress: "",
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-      nextStep();
-    },
-  });
+  const handleVoterIDSubmit = (values: any) => {
+    setVoterIDData(values);
+    nextStep();
+  };
 
-  const votingFields = [{ key: "votingAddress", label: "Voting Address" }];
-  const votingFormik = useFormik({
-    initialValues: {
-      votingAddress: "",
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-      nextStep();
-    },
-  });
+  const handleCastVotesSubmit = (values: any) => {
+    alert(JSON.stringify({ voterIDData, ...values }, null, 2));
+    resetStepForm();
+  };
 
   const steps = [
     {
-      label: "Name",
-      content: (
-        <TextForm formik={nameFormik} fields={nameFields} buttonLabel="Next" />
-      ),
+      label: "Voter Identification",
+      content: <VoterIDForm submitCallback={handleVoterIDSubmit} />,
     },
     {
-      label: "Residential Address",
-      content: (
-        <TextForm
-          formik={residentialAddressFormik}
-          fields={residentialAddressFields}
-          buttonLabel="Next"
-        />
-      ),
-    },
-    {
-      label: "Voting",
-      content: (
-        <VotingForm
-          formik={votingFormik}
-          fields={votingFields}
-          buttonLabel="Cast Votes"
-        />
-      ),
+      label: "Cast Votes",
+      content: <VoterIDForm submitCallback={handleCastVotesSubmit} />,
     },
   ];
 
