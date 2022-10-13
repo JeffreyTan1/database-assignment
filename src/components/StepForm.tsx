@@ -77,9 +77,9 @@ const StepForm = (props: Props) => {
       label: "Voting",
       content: (
         <VotingForm
-          formik={residentialAddressFormik}
-          fields={residentialAddressFields}
-          buttonLabel="Next"
+          formik={votingFormik}
+          fields={votingFields}
+          buttonLabel="Cast Votes"
         />
       ),
     },
@@ -96,7 +96,7 @@ const StepForm = (props: Props) => {
         ))}
       </Steps>
       <Flex width="100%" justify="center" my={10}>
-        <Button isDisabled={activeStep === 0} mr={4} size="sm" onClick={resetStepForm}>
+        <Button isDisabled={activeStep === 0} mr={4} size="md" onClick={resetStepForm}>
           Reset
         </Button>
       </Flex>

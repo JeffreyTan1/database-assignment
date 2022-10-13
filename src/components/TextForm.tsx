@@ -6,6 +6,7 @@ import {
   FormLabel,
   Input,
   VStack,
+  useColorMode
 } from "@chakra-ui/react";
 
 type Props = {
@@ -16,32 +17,34 @@ type Props = {
 
 const TextForm = (props: Props) => {
   const { formik, fields, buttonLabel } = props;
+  const { colorMode } = useColorMode();
+  const outerBgColor = colorMode === "light" ? "gray.100" : "gray.700";
+  const innerBgColor = colorMode === "light" ? "white" : "gray.800";
+  
   return (
     <Flex
-      bg="gray.100"
+      bg={outerBgColor}
       align="center"
       justify="center"
-      height="30rem"
+      height="25rem"
       rounded={"md"}
     >
-      <Box bg="white" p={6} rounded="md">
+      <Box bg={innerBgColor} minW={"40%"} maxW={"90%"} p={6} rounded="md">
         <form onSubmit={formik.handleSubmit}>
           <VStack spacing={4} align="flex-start">
-            {
-              fields.map((field) => (
-                <FormControl>
-                  <FormLabel htmlFor={field.key}>{field.label}</FormLabel>
-                  <Input
-                    id={field.key}
-                    name={field.key}
-                    type={field.key}
-                    variant="filled"
-                    onChange={formik.handleChange}
-                    value={formik.values[field.key]}
-                  />
-                </FormControl>
-              ))
-            }
+            {fields.map((field) => (
+              <FormControl>
+                <FormLabel htmlFor={field.key}>{field.label}</FormLabel>
+                <Input
+                  id={field.key}
+                  name={field.key}
+                  type={field.key}
+                  variant="filled"
+                  onChange={formik.handleChange}
+                  value={formik.values[field.key]}
+                />
+              </FormControl>
+            ))}
             <Button type="submit" colorScheme="teal" width="full">
               {buttonLabel}
             </Button>

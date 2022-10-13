@@ -2,13 +2,10 @@ import {
   ChakraProvider,
   Box,
   Text,
-  Link,
-  VStack,
-  Code,
-  Flex,
   Image,
-  HStack,
   extendTheme,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import { StepsStyleConfig as Steps } from "chakra-ui-steps";
 import { useState } from "react";
@@ -25,28 +22,39 @@ const App = () => {
   const [stepFormRenderCount, setStepFormRenderCount] = useState(0);
 
   return (
-  <ChakraProvider theme={theme}>
-    <Box mx={"auto"} maxW={"container.xl"} my={10} px={10}>
-      <Flex
-        width={"full"}
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        px={2}
-        py={4}
-        borderBottomWidth={1}
-      >
-        <Image src={"/logo.png"} width={85} />
-        <Text fontSize={"2xl"} color={"teal.500"} fontWeight={"semibold"}>
-          Federal Election App
-        </Text>
-        <ColorModeSwitcher />
-      </Flex>
+    <ChakraProvider theme={theme}>
+      <Box mx={"auto"} maxW={"container.xl"} my={10} px={10}>
+        <Grid
+          width={"full"}
+          px={2}
+          py={4}
+          borderBottomWidth={1}
+          gridTemplateColumns={"repeat(3, 1fr)"}
+          alignItems={"center"}
+        >
+          <Image src={"/logo.png"} width={'30%'} />
+          <Text
+            fontSize={"xl"}
+            color={"teal.500"}
+            fontWeight={"semibold"}
+            textAlign={"center"}
+          >
+            Federal Election App
+          </Text>
+          <GridItem justifySelf={'end'}>
+            <ColorModeSwitcher />
+          </GridItem>
+        </Grid>
 
-      <Box p={14}>
-        <StepFrom key={stepFormRenderCount} setRenderCount={setStepFormRenderCount}/>
+        <Box p={"3%"}>
+          <StepFrom
+            key={stepFormRenderCount}
+            setRenderCount={setStepFormRenderCount}
+          />
+        </Box>
       </Box>
-    </Box>
-  </ChakraProvider>)
+    </ChakraProvider>
+  );
 };
 
 export default App;
