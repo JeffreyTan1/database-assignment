@@ -8,9 +8,10 @@ import {
   VStack,
   useColorMode,
   Checkbox,
+  Select,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   submitCallback: (values: any) => void;
@@ -25,11 +26,11 @@ const TextForm = (props: Props) => {
 
   const formik = useFormik({
     initialValues: {
-      fullName: "",
-      address: "",
-      suburb: "",
-      state: "",
-      postcode: "",
+      firstName: "",
+      lastName: "",
+      gender: "",
+      dateOfBirth: "",
+      residentialAddress: "",
       alreadyVoted: false,
     },
     onSubmit: (values) => {
@@ -37,37 +38,34 @@ const TextForm = (props: Props) => {
     },
   });
 
+  const loadWidget = () => {
+    // @ts-ignore
+    const newWidget = new AddressFinder.Widget(
+      document.getElementById("residentialAddress"),
+      "ADDRESSFINDER_DEMO_KEY",
+      "AU"
+    );
 
-   const loadWidget = () => {
-     // @ts-ignore
-     const newWidget = new AddressFinder.Widget(
-       document.getElementById("address"),
-       "ADDRESSFINDER_DEMO_KEY",
-       "AU"
-     );
+    newWidget.on("result:select", function (fullAddress, metaData) {
+      formik.setFieldValue("residentialAddress", fullAddress);
+    });
 
-     newWidget.on("result:select", function (fullAddress, metaData) {
-       formik.setFieldValue("address", fullAddress);
-       formik.setFieldValue("suburb", metaData.locality_name);
-       formik.setFieldValue("state", metaData.state_territory);
-       formik.setFieldValue("postcode", metaData.postcode);
-     });
+    setWidget(newWidget);
+  };
 
-     setWidget(newWidget);
-   };
-   useEffect(() => {
-     var script = document.createElement("script");
-     script.src = "https://api.addressfinder.io/assets/v3/widget.js";
-     script.async = true;
-     script.onload = loadWidget;
-     document.body.appendChild(script);
+  useEffect(() => {
+    var script = document.createElement("script");
+    script.src = "https://api.addressfinder.io/assets/v3/widget.js";
+    script.async = true;
+    script.onload = loadWidget;
+    document.body.appendChild(script);
 
-     return () => {
-       if (widget) {
-         widget.destroy();
-       }
-     };
-   }, []);
+    return () => {
+      if (widget) {
+        widget.destroy();
+      }
+    };
+  }, []);
 
   return (
     <Flex
@@ -80,72 +78,65 @@ const TextForm = (props: Props) => {
       <Box bg={innerBgColor} minW={"40%"} maxW={"90%"} p={6} rounded="md">
         <form onSubmit={formik.handleSubmit}>
           <VStack spacing={4} align="flex-start">
-            <FormControl>
-              <FormLabel htmlFor="firstName">Full Name</FormLabel>
+            <FormControl id="firstName" isRequired>
+              <FormLabel>First Name</FormLabel>
               <Input
-                id="fullName"
-                name="fullName"
-                type="fullName"
-                variant="filled"
+                type="text"
+                placeholder="First Name"
+                value={formik.values.firstName}
                 onChange={formik.handleChange}
-                value={formik.values.fullName}
               />
             </FormControl>
-            <FormControl>
-              <FormLabel>Address</FormLabel>
+            <FormControl id="lastName" isRequired>
+              <FormLabel>Last Name</FormLabel>
               <Input
-                type={"search"}
-                id="address"
-                name="address"
-                placeholder="Enter your address here..."
-                variant="filled"
+                type="text"
+                placeholder="Last Name"
+                value={formik.values.lastName}
                 onChange={formik.handleChange}
-                value={formik.values.address}
               />
             </FormControl>
-            <FormControl>
-              <FormLabel>Suburb</FormLabel>
-              <Input
-                id="suburb"
-                name="suburb"
-                variant="filled"
+            <FormControl id="gender" isRequired>
+              <FormLabel>Gender</FormLabel>
+              <Select
+                placeholder="Select option"
+                value={formik.values.gender}
                 onChange={formik.handleChange}
-                value={formik.values.suburb}
+              >
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </Select>
+            </FormControl>
+            <FormControl id="dateOfBirth" isRequired>
+              <FormLabel>Date of Birth</FormLabel>
+              <Input
+                type="date"
+                placeholder="Date of Birth"
+                value={formik.values.dateOfBirth}
+                onChange={formik.handleChange}
               />
             </FormControl>
-            <FormControl>
-              <FormLabel>State</FormLabel>
+            <FormControl id="residentialAddress" isRequired>
+              <FormLabel>Residential Address</FormLabel>
               <Input
-                id="state"
-                name="state"
-                variant="filled"
+                type="text"
+                placeholder="Search for your address..."
+                value={formik.values.residentialAddress}
                 onChange={formik.handleChange}
-                value={formik.values.state}
               />
             </FormControl>
-            <FormControl>
-              <FormLabel>Postcode</FormLabel>
-              <Input
-                id="postcode"
-                name="postcode"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={formik.values.postcode}
-              />
-            </FormControl>
-            <FormControl>
+            <FormControl id="alreadyVoted">
               <FormLabel htmlFor="alreadyVoted">
                 Have you voted before in THIS election? (Tick if already voted)
               </FormLabel>
               <Checkbox
-                id="alreadyVoted"
                 name="alreadyVoted"
                 variant="filled"
                 onChange={formik.handleChange}
                 checked={formik.values.alreadyVoted}
               />
             </FormControl>
-
             <Button type="submit" colorScheme="teal" width="full">
               Next
             </Button>

@@ -10,7 +10,7 @@ import {
 import { StepsStyleConfig as Steps } from "chakra-ui-steps";
 import { useState } from "react";
 import { ColorModeSwitcher } from "./components/ColorModeSwitcher"
-import StepFrom from "./components/StepForm";
+import StepFrom from "./components/MultiStepForm";
 
 const theme = extendTheme({
   components: {

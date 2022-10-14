@@ -1,2 +1,1 @@
-export default function App() {
-}
+export const checkVoterExists = async (firstName: string) => {}
