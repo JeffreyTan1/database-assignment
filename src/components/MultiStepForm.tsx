@@ -53,7 +53,7 @@ const StepForm = (props: Props) => {
       title: voterExists ? "Voter validated" : "Voter not found",
       description: voterExistsMessage,
       status: voterExists ? "success" : "error",
-      duration: 5000,
+      duration: voterExists ? 1000 : 4000,
       isClosable: true,
     });
     if (!voterExists) {
@@ -73,7 +73,7 @@ const StepForm = (props: Props) => {
         : "Voter has voted before",
       description: notPreviouslyVotedMessage,
       status: notPreviouslyVoted ? "success" : "error",
-      duration: 5000,
+      duration: notPreviouslyVoted ? 1000 : 4000,
       isClosable: true,
     });
     if (!notPreviouslyVoted) {

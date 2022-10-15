@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
+import './../styles/addressfinder.css' 
 
 interface Props {
   submitCallback: (values: any) => void;
@@ -54,6 +55,7 @@ const VoterIDForm = (props: Props) => {
   };
 
   useEffect(() => {
+    // Check if the widget has already been loaded
     var script = document.createElement("script");
     script.src = "https://api.addressfinder.io/assets/v3/widget.js";
     script.async = true;
@@ -107,12 +109,14 @@ const VoterIDForm = (props: Props) => {
             </FormControl>
             <FormControl id="voter_r_address" isRequired>
               <FormLabel>Residential Address</FormLabel>
-              <Input
-                type="text"
-                placeholder="Search for your address..."
-                value={formik.values.voter_r_address}
-                onChange={formik.handleChange}
-              />
+              <div >
+                <Input
+                  type="text"
+                  placeholder="Search for your address..."
+                  value={formik.values.voter_r_address}
+                  onChange={formik.handleChange}
+                />
+              </div>
             </FormControl>
             <Button type="submit" colorScheme="teal" width="full">
               Next
