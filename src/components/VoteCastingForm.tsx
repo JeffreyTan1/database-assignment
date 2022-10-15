@@ -14,7 +14,7 @@ type Props = {
   submitCallback: (values: any) => void;
 };
 
-const VotingForm = (props: Props) => {
+const VoteCastingForm = (props: Props) => {
   const { colorMode } = useColorMode();
   const outerBgColor = colorMode === "light" ? "gray.100" : "gray.700";
   const innerBgColor = colorMode === "light" ? "white" : "gray.800";
@@ -49,4 +49,4 @@ const VotingForm = (props: Props) => {
   );
 };
 
-export default VotingForm;
+export default VoteCastingForm;

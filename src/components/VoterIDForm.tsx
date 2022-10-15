@@ -15,7 +15,7 @@ interface Props {
   submitCallback: (values: any) => void;
 }
 
-const TextForm = (props: Props) => {
+const VoterIDForm = (props: Props) => {
   const { colorMode } = useColorMode();
   const outerBgColor = colorMode === "light" ? "gray.100" : "gray.700";
   const innerBgColor = colorMode === "light" ? "white" : "gray.800";
@@ -124,4 +124,4 @@ const TextForm = (props: Props) => {
   );
 };
 
-export default TextForm;
+export default VoterIDForm;

@@ -6,10 +6,16 @@ import {
   extendTheme,
   Grid,
   GridItem,
+  Flex,
+  FormControl,
+  Input,
+  FormLabel,
+  Button,
 } from "@chakra-ui/react";
 import { StepsStyleConfig as Steps } from "chakra-ui-steps";
+import { useFormik } from "formik";
 import { useState } from "react";
-import { ColorModeSwitcher } from "./components/ColorModeSwitcher"
+import { ColorModeSwitcher } from "./components/ColorModeSwitcher";
 import StepFrom from "./components/MultiStepForm";
 
 const theme = extendTheme({
@@ -20,6 +26,16 @@ const theme = extendTheme({
 
 const App = () => {
   const [stepFormRenderCount, setStepFormRenderCount] = useState(0);
+  const [activeElectionCode, setActiveElectionCode] = useState(null);
+
+  const settingsFormik = useFormik({
+    initialValues: {
+      election_code: "",
+    },
+    onSubmit: (values) => {
+      setActiveElectionCode(values.election_code);
+    },
+  });
 
   return (
     <ChakraProvider theme={theme}>
@@ -32,7 +48,7 @@ const App = () => {
           gridTemplateColumns={"repeat(3, 1fr)"}
           alignItems={"center"}
         >
-          <Image src={"/logo.png"} width={'30%'} />
+          <Image src={"/logo.png"} width={"30%"} />
           <Text
             fontSize={"xl"}
             color={"teal.500"}
@@ -41,16 +57,36 @@ const App = () => {
           >
             Federal Election App
           </Text>
-          <GridItem justifySelf={'end'}>
+          <GridItem justifySelf={"end"}>
             <ColorModeSwitcher />
           </GridItem>
         </Grid>
 
         <Box p={"3%"}>
-          <StepFrom
-            key={stepFormRenderCount}
-            setRenderCount={setStepFormRenderCount}
-          />
+          {!activeElectionCode ? (
+            <form onSubmit={settingsFormik.handleSubmit}>
+              <Flex justifyContent={"center"} alignItems={"end"} gap={5}>
+                <FormControl id="election_code" isRequired w={"15%"}>
+                  <FormLabel>Election Code</FormLabel>
+                  <Input
+                    type="text"
+                    placeholder="Election Code"
+                    value={settingsFormik.values.election_code}
+                    onChange={settingsFormik.handleChange}
+                  />
+                </FormControl>
+                <Button type="submit" colorScheme="teal" w={"10%"}>
+                  Set
+                </Button>
+              </Flex>
+            </form>
+          ) : (
+            <StepFrom
+              key={stepFormRenderCount}
+              setRenderCount={setStepFormRenderCount}
+              electionCode={activeElectionCode}
+            />
+          )}
         </Box>
       </Box>
     </ChakraProvider>
