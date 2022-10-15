@@ -64,9 +64,7 @@ const VoterIDForm = (props: Props) => {
       script.async = true;
       script.onload = loadWidget;
       document.body.appendChild(script);
-    } else {
-      loadWidget();
-    }
+    } 
     
     return () => {
       if (widget) {
