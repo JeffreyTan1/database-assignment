@@ -55,13 +55,19 @@ const VoterIDForm = (props: Props) => {
   };
 
   useEffect(() => {
-    // Check if the widget has already been loaded
-    var script = document.createElement("script");
-    script.src = "https://api.addressfinder.io/assets/v3/widget.js";
-    script.async = true;
-    script.onload = loadWidget;
-    document.body.appendChild(script);
-
+    // check if dom has a script with id addressfinder-script
+    const scriptInDOM = document.getElementById("addressfinder-script");
+    if (!scriptInDOM) {
+      const script = document.createElement("script");
+      script.id = "addressfinder-script";
+      script.src = "https://api.addressfinder.io/assets/v3/widget.js";
+      script.async = true;
+      script.onload = loadWidget;
+      document.body.appendChild(script);
+    } else {
+      loadWidget();
+    }
+    
     return () => {
       if (widget) {
         widget.destroy();
