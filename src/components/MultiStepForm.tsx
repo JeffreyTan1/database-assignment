@@ -22,22 +22,23 @@ type Props = {
 };
 
 interface VoterIDValues {
-  firstName: string;
-  lastName: string;
-  gender: string;
-  dateOfBirth: string;
-  residentialAddress: string;
+  voter_f_name: string;
+  voter_l_name: string;
+  voter_dob: string;
+  voter_r_address: string;
 }
 
 interface CastVotesValues {}
 
 const StepForm = (props: Props) => {
   const { colorMode } = useColorMode();
-  const settingBubbleColor = colorMode === "light" ? "teal.200" : "teal.500";
+  const settingsBubbleColor = colorMode === "light" ? "#13d4ba50" : "#00a89150";
   const toast = useToast();
   const { nextStep, activeStep } = useSteps({
     initialStep: 0,
   });
+  const [voterIDData, setVoterIDData] = useState<VoterIDValues | null>(null);
+  const [electorateName, setElectorateName] = useState<string | null>(null);
 
   const resetStepForm = () => {
     props.setRenderCount((prev: number) => prev + 1);
@@ -47,8 +48,11 @@ const StepForm = (props: Props) => {
     if (!values) return;
 
     // Check if voter is registered
-    const { success: voterExists, message: voterExistsMessage } =
-      await doesVoterExist(values);
+    const {
+      success: voterExists,
+      message: voterExistsMessage,
+      electorateName: voterElectorateName,
+    } = await doesVoterExist(values);
     toast({
       title: voterExists ? "Voter validated" : "Voter not found",
       description: voterExistsMessage,
@@ -82,6 +86,8 @@ const StepForm = (props: Props) => {
     }
 
     // If both checks pass, proceed to next step
+    setVoterIDData(values);
+    setElectorateName(voterElectorateName);
     nextStep();
   };
 
@@ -96,21 +102,22 @@ const StepForm = (props: Props) => {
     },
     {
       label: "Cast Votes",
-      content: <VoteCastingForm submitCallback={handleCastVotesSubmit} />,
+      content: <VoteCastingForm submitCallback={handleCastVotesSubmit} electorateName={electorateName}/>,
     },
   ];
 
   return (
     <Flex flexDir="column" width="100%">
       <Box
-        width={"20%"}
+        width={"15%"}
         mx={"auto"}
         textAlign={"center"}
-        fontWeight={"semibold"}
         mb={2}
-        bg={settingBubbleColor}
-        py={1}
+        bg={settingsBubbleColor}
+        fontWeight={"semibold"}
+        py={1.5}
         rounded={"md"}
+        shadow={"md"}
       >
         Election Code: {props.electionCode}
       </Box>

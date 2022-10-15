@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 
 type Props = {
   submitCallback: (values: any) => void;
+  electorateName: string;
 };
 
 const VoteCastingForm = (props: Props) => {

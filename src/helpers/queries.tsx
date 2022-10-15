@@ -14,6 +14,7 @@ export const doesVoterExist = async (payload: object) => {
   return {
     success: data.status === 200,
     message: data.message,
+    electorateName: data.electorate_name,
   };
 }
 
