@@ -7,8 +7,6 @@ import {
   Input,
   VStack,
   useColorMode,
-  Checkbox,
-  Select,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
@@ -26,28 +24,30 @@ const TextForm = (props: Props) => {
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      gender: "",
-      dateOfBirth: "",
-      residentialAddress: "",
-      alreadyVoted: false,
+      voter_f_name: "",
+      voter_l_name: "",
+      voter_dob: "",
+      voter_r_address: "",
     },
     onSubmit: (values) => {
-      props.submitCallback(values);
+      const transformedValues = {
+        ...values,
+        voter_dob: new Date(values.voter_dob).toLocaleDateString('en-GB'),
+      };
+      props.submitCallback(transformedValues);
     },
   });
 
   const loadWidget = () => {
     // @ts-ignore
     const newWidget = new AddressFinder.Widget(
-      document.getElementById("residentialAddress"),
+      document.getElementById("voter_r_address"),
       "ADDRESSFINDER_DEMO_KEY",
       "AU"
     );
 
     newWidget.on("result:select", function (fullAddress, metaData) {
-      formik.setFieldValue("residentialAddress", fullAddress);
+      formik.setFieldValue("voter_r_address", fullAddress);
     });
 
     setWidget(newWidget);
@@ -78,63 +78,40 @@ const TextForm = (props: Props) => {
       <Box bg={innerBgColor} minW={"40%"} maxW={"90%"} p={6} rounded="md">
         <form onSubmit={formik.handleSubmit}>
           <VStack spacing={4} align="flex-start">
-            <FormControl id="firstName" isRequired>
+            <FormControl id="voter_f_name" isRequired>
               <FormLabel>First Name</FormLabel>
               <Input
                 type="text"
                 placeholder="First Name"
-                value={formik.values.firstName}
+                value={formik.values.voter_f_name}
                 onChange={formik.handleChange}
               />
             </FormControl>
-            <FormControl id="lastName" isRequired>
+            <FormControl id="voter_l_name" isRequired>
               <FormLabel>Last Name</FormLabel>
               <Input
                 type="text"
                 placeholder="Last Name"
-                value={formik.values.lastName}
+                value={formik.values.voter_l_name}
                 onChange={formik.handleChange}
               />
             </FormControl>
-            <FormControl id="gender" isRequired>
-              <FormLabel>Gender</FormLabel>
-              <Select
-                placeholder="Select option"
-                value={formik.values.gender}
-                onChange={formik.handleChange}
-              >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </Select>
-            </FormControl>
-            <FormControl id="dateOfBirth" isRequired>
+            <FormControl id="voter_dob" isRequired>
               <FormLabel>Date of Birth</FormLabel>
               <Input
                 type="date"
                 placeholder="Date of Birth"
-                value={formik.values.dateOfBirth}
+                value={formik.values.voter_dob}
                 onChange={formik.handleChange}
               />
             </FormControl>
-            <FormControl id="residentialAddress" isRequired>
+            <FormControl id="voter_r_address" isRequired>
               <FormLabel>Residential Address</FormLabel>
               <Input
                 type="text"
                 placeholder="Search for your address..."
-                value={formik.values.residentialAddress}
+                value={formik.values.voter_r_address}
                 onChange={formik.handleChange}
-              />
-            </FormControl>
-            <FormControl id="alreadyVoted">
-              <FormLabel htmlFor="alreadyVoted">
-                Have you voted before in THIS election? (Tick if already voted)
-              </FormLabel>
-              <Checkbox
-                name="alreadyVoted"
-                variant="filled"
-                onChange={formik.handleChange}
-                checked={formik.values.alreadyVoted}
               />
             </FormControl>
             <Button type="submit" colorScheme="teal" width="full">

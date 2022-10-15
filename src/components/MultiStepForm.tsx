@@ -1,6 +1,7 @@
 import { Box, Button, Flex, useToast } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
 import { useState } from "react";
+import { doesVoterExist } from "../helpers/queries";
 import VoterIDForm from "./VoterIDForm";
 import VotingForm from "./VotingCastingForm";
 
@@ -14,7 +15,6 @@ interface VoterIDValues {
   gender: string;
   dateOfBirth: string;
   residentialAddress: string;
-  alreadyVoted: boolean;
 }
 
 interface CastVotesValues {
@@ -32,35 +32,35 @@ const StepForm = (props: Props) => {
 
   const [voterIDData, setVoterIDData] = useState <VoterIDValues|null>(null);
 
-  const handleVoterIDSubmit = (values: VoterIDValues) => {
+  const handleVoterIDSubmit = async (values: VoterIDValues) => {
     if (!values) return;
 
-    // Check empty fields
-    for (const [key, value] of Object.entries(values)) {
-      if (value === "") {
-        toast({
-          title: "Error",
-          description: "Please fill out all fields",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-        return;
-      };
-    };
+    // Check if voter is registered
+    const { success: voterExists, message: voterExistsMessage } =
+      await doesVoterExist(values);
+    toast({
+      title: voterExists ? "Voter validated" : "Voter not found",
+      description: voterExistsMessage,
+      status: voterExists ? "success" : "error",
+      duration: 5000,
+      isClosable: true,
+    });
+    if (!voterExists) {
+      // resetStepForm();
+      return;
+    }
 
     // Check if already voted
-    if (values.alreadyVoted) {
-      toast({
-        title: "Error",
-        description: "You have already voted. Voter fraud is a crime.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-      resetStepForm();
-      return;
-    };
+
+    // toast({
+    //   title: "Error",
+    //   description: "You have already voted. Voter fraud is a crime.",
+    //   status: "error",
+    //   duration: 5000,
+    //   isClosable: true,
+    // });
+    // resetStepForm();
+    // return;
 
     // Check if voter is registered
     setVoterIDData(values);
