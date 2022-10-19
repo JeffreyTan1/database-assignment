@@ -36,3 +36,19 @@ export const hasNotPreviouslyVoted = async (payload: object) => {
     message: data.message,
   };
 };
+
+export const getCandidates = async (payload: object) => {
+  const res = await fetch(
+    "https://titan.csit.rmit.edu.au/~s3851781/get_candidates.php",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }
+  );
+
+  const data = await res.json();
+  return data;
+}

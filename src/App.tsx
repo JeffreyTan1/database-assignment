@@ -16,7 +16,7 @@ import { StepsStyleConfig as Steps } from "chakra-ui-steps";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { ColorModeSwitcher } from "./components/ColorModeSwitcher";
-import StepFrom from "./components/MultiStepForm";
+import MultiStepForm from "./components/MultiStepForm";
 
 const theme = extendTheme({
   components: {
@@ -81,7 +81,7 @@ const App = () => {
               </Flex>
             </form>
           ) : (
-            <StepFrom
+            <MultiStepForm
               key={stepFormRenderCount}
               setRenderCount={setStepFormRenderCount}
               electionCode={activeElectionCode}

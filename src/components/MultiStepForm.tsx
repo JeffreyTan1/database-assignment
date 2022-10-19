@@ -102,7 +102,7 @@ const StepForm = (props: Props) => {
     },
     {
       label: "Cast Votes",
-      content: <VoteCastingForm submitCallback={handleCastVotesSubmit} electorateName={electorateName}/>,
+      content: <VoteCastingForm submitCallback={handleCastVotesSubmit} electionCode={props.electionCode} electorateName={electorateName}/>,
     },
   ];
 
