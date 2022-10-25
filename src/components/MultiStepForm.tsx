@@ -12,7 +12,7 @@ import {
 import { Step, Steps, useSteps } from "chakra-ui-steps";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { doesVoterExist, hasNotPreviouslyVoted } from "../helpers/queries";
+import { castVotes, doesVoterExist, hasNotPreviouslyVoted } from "../helpers/queries";
 import VoterIDForm from "./VoterIDForm";
 import VoteCastingForm from "./VoteCastingForm";
 
@@ -28,7 +28,7 @@ interface VoterIDValues {
   voter_r_address: string;
 }
 
-interface CastVotesValues {}
+type CastVotesValues = {candidate_name: string; party_code: string; preference: string}[];
 
 const StepForm = (props: Props) => {
   const { colorMode } = useColorMode();
@@ -91,7 +91,22 @@ const StepForm = (props: Props) => {
     nextStep();
   };
 
-  const handleCastVotesSubmit = (values: VoterIDValues) => {
+  const handleCastVotesSubmit = async (values: CastVotesValues) => {
+    if (!values) return;
+    const { success: votesCast, message: votesCastMessage } =
+      await castVotes({
+        ...values,
+        election_code: props.electionCode,
+      });
+    toast({
+      title: votesCast ? "Votes cast" : "Votes not cast",
+      description: votesCastMessage,
+      status: votesCast ? "success" : "error",
+      duration: votesCast ? 1000 : 4000,
+      isClosable: true,
+    });
+    setVoterIDData(null);
+    setElectorateName(null);
     resetStepForm();
   };
 
