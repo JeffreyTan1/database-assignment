@@ -2,15 +2,10 @@ import {
   Box,
   Button,
   Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Text,
   useColorMode,
   useToast,
 } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
-import { useFormik } from "formik";
 import { useState } from "react";
 import { castVotes, doesVoterExist, hasNotPreviouslyVoted } from "../helpers/queries";
 import VoterIDForm from "./VoterIDForm";
@@ -97,6 +92,8 @@ const StepForm = (props: Props) => {
       await castVotes({
         ...values,
         election_code: props.electionCode,
+        electorate_name: electorateName,
+        ...voterIDData,
       });
     toast({
       title: votesCast ? "Votes cast" : "Votes not cast",

@@ -13,7 +13,7 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { castVotes } from "../helpers/queries";
+import { getCandidates } from "../helpers/queries";
 import { useEffect } from "react";
 
 type Props = {
@@ -29,7 +29,7 @@ const VoteCastingForm = (props: Props) => {
   
   const formik = useFormik({
     initialValues: {
-      candidatePreferences: [],
+      candidates: [],
     },
     onSubmit: (values) => {
       props.submitCallback(values);
@@ -42,21 +42,25 @@ const VoteCastingForm = (props: Props) => {
         election_code: props.electionCode,
         electorate_name: props.electorateName,
       };
-      const candidates = await castVotes(payload);
-      const candidatesWithPreferences = candidates.data.map((candidate) => {
-        return {
-          ...candidate,
-          preference: null,
-        };
-      });
-      formik.setFieldValue("candidatePreferences", candidatesWithPreferences);
+      try {
+        const candidates = await getCandidates(payload);
+        const candidatesWithPreferences = candidates.data.map((candidate) => {
+          return {
+            ...candidate,
+            preference: "",
+          };
+        });
+        formik.setFieldValue("candidates", candidatesWithPreferences);
+      } catch (error) {
+        console.error(error);
+      }
     };
   
     setCandidates();
   }, [])
   
   const handlePreferenceChange = (index: number, val: string) => {
-    const candidatePreferences = formik.values.candidatePreferences;
+    const candidatePreferences = formik.values.candidates;
     candidatePreferences[index].preference = val;
     formik.setFieldValue("candidatePreferences", candidatePreferences);
   }
@@ -82,10 +86,10 @@ const VoteCastingForm = (props: Props) => {
             <Text fontWeight={'bold'}>Electoral Division of {props.electorateName}</Text>
             <Divider/>
             <Text fontSize={'lg'}>
-              Number the boxes from 1 to {formik.values.candidatePreferences.length} in the order of your choice
+              Number the boxes from 1 to {formik.values.candidates.length} in the order of your choice
             </Text>
             <Divider/>
-            {formik?.values?.candidatePreferences?.map((candidate, index) => {
+            {formik?.values?.candidates?.map((candidate, index) => {
               const uniqueId = candidate.candidate_name + candidate.party_code;
               return (
                 <Box id={uniqueId} key={uniqueId} w={'full'}>
