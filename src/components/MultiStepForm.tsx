@@ -32,7 +32,7 @@ interface CastVotesValues {}
 
 const StepForm = (props: Props) => {
   const { colorMode } = useColorMode();
-  const settingsBubbleColor = colorMode === "light" ? "#13d4ba50" : "#00a89150";
+  const settingsBubbleColor = colorMode === "light" ? "#3ad6c450" : "#00a89150";
   const toast = useToast();
   const { nextStep, activeStep } = useSteps({
     initialStep: 0,
@@ -115,6 +115,7 @@ const StepForm = (props: Props) => {
         mb={2}
         bg={settingsBubbleColor}
         fontWeight={"semibold"}
+        fontSize={"sm"}
         py={1.5}
         rounded={"md"}
         shadow={"md"}
