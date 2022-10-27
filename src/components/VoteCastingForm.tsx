@@ -43,11 +43,12 @@ const VoteCastingForm = (props: Props) => {
         electorate_name: props.electorateName,
       };
       try {
-        const candidates = await getCandidates(payload);
-        const candidatesWithPreferences = candidates.data.map((candidate) => {
+        const {data: candidates} = await getCandidates(payload);
+        const candidatesWithPreferences = candidates.map((candidate) => {
           return {
             ...candidate,
             preference: "",
+            candidate_party: candidate.party_code,
           };
         });
         formik.setFieldValue("candidates", candidatesWithPreferences);
@@ -60,9 +61,9 @@ const VoteCastingForm = (props: Props) => {
   }, [])
   
   const handlePreferenceChange = (index: number, val: string) => {
-    const candidatePreferences = formik.values.candidates;
-    candidatePreferences[index].preference = val;
-    formik.setFieldValue("candidatePreferences", candidatePreferences);
+    const candidates = formik.values.candidates;
+    candidates[index].preference = val;
+    formik.setFieldValue("candidates", candidates);
   }
 
   return (

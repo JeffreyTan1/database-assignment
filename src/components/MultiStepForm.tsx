@@ -37,6 +37,8 @@ const StepForm = (props: Props) => {
 
   const resetStepForm = () => {
     props.setRenderCount((prev: number) => prev + 1);
+    setVoterIDData(null);
+    setElectorateName(null);
   };
 
   const handleVoterIDSubmit = async (values: VoterIDValues) => {
@@ -102,8 +104,7 @@ const StepForm = (props: Props) => {
       duration: votesCast ? 1000 : 4000,
       isClosable: true,
     });
-    setVoterIDData(null);
-    setElectorateName(null);
+
     resetStepForm();
   };
 

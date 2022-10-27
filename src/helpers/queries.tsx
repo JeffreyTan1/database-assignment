@@ -50,7 +50,11 @@ export const getCandidates = async (payload: object) => {
   );
 
   const data = await res.json();
-  return data;
+  return {
+    success: data.status === 200,
+    message: data.message,
+    data: data.data
+  };
 }
 
 export const castVotes = async (payload: object) => {
@@ -65,6 +69,9 @@ export const castVotes = async (payload: object) => {
     }
   );
 
-  const data = await res.json();
-  return data;
+  const data = await res.json()
+  return {
+    success: data.status === 200,
+    message: data.message,
+  };
 };
