@@ -2,6 +2,8 @@ import {
   Box,
   Button,
   Flex,
+  HStack,
+  Text,
   useColorMode,
   useToast,
 } from "@chakra-ui/react";
@@ -121,20 +123,17 @@ const StepForm = (props: Props) => {
 
   return (
     <Flex flexDir="column" width="100%">
-      <Box
-        width={"15%"}
-        mx={"auto"}
-        textAlign={"center"}
-        mb={2}
-        bg={settingsBubbleColor}
-        fontWeight={"semibold"}
-        fontSize={"sm"}
-        py={1.5}
-        rounded={"md"}
-        shadow={"md"}
-      >
-        Election Code: {props.electionCode}
-      </Box>
+      <HStack justifyContent={'center'}>
+        {
+          ["Election Code", props.electionCode].map((text, index) => (
+            <Text key={index} fontSize="md" fontWeight={"semibold"} border={'1px'} borderColor={'gray.500'} px={3} py={1} rounded={'md'}>
+              {text}
+            </Text>
+          ))
+        }
+ 
+      </HStack>
+
       <Steps activeStep={activeStep} labelOrientation="vertical">
         {steps.map(({ label, content }) => (
           <Step label={label} key={label}>
