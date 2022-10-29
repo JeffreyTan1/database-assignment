@@ -57,7 +57,30 @@ export const getCandidates = async (payload: object) => {
   };
 }
 
-export const castVotes = async (payload: object) => {
+export const castVotes = async (payload: any) => {
+  const payloadCandidates = JSON.parse(JSON.stringify(payload.candidates));
+  // Loop through candidates and ensure all preference fields are either parsed as non NaN integers or null
+  for (const candidate of payloadCandidates) {
+    const preference = candidate.preference;
+    if (preference === "") {
+      candidate.preference = -1;
+    } else {
+      const parsedPreference = parseInt(preference);
+      if (isNaN(parsedPreference)) {
+        candidate.preference = -1;
+      } else {
+        candidate.preference = parsedPreference;
+      }
+    }
+  }
+  
+  const validPayload = {
+    ...payload,
+    candidates: payloadCandidates,
+  };
+
+  console.log(validPayload);
+
   const res = await fetch(
     "https://titan.csit.rmit.edu.au/~s3851781/cast_votes.php",
     {
@@ -65,11 +88,11 @@ export const castVotes = async (payload: object) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(validPayload),
     }
   );
 
-  const data = await res.json()
+  const data = await res.json();
   return {
     success: data.status === 200,
     message: data.message,

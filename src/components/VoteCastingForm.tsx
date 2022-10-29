@@ -116,7 +116,6 @@ const VoteCastingForm = (props: Props) => {
                       <FormLabel>{candidate.party_code}</FormLabel>
                       <Input
                         w={20}
-                        type="number"
                         placeholder=""
                         value={candidate.preference}
                         onChange={(e) =>
