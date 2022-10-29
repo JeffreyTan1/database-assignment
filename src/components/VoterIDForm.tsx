@@ -111,6 +111,7 @@ const VoterIDForm = (props: Props) => {
               <FormLabel>Date of Birth</FormLabel>
               <Input
                 type="date"
+                max="9999-12-31"
                 placeholder="Date of Birth"
                 value={formik.values.voter_dob}
                 onChange={formik.handleChange}
@@ -118,7 +119,7 @@ const VoterIDForm = (props: Props) => {
             </FormControl>
             <FormControl id="voter_r_address" isRequired>
               <FormLabel>Residential Address</FormLabel>
-              <div >
+              <div>
                 <Input
                   type="text"
                   placeholder="Search for your address..."

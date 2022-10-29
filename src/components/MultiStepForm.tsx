@@ -53,7 +53,7 @@ const StepForm = (props: Props) => {
       electorateName: voterElectorateName,
     } = await doesVoterExist(values);
     toast({
-      title: voterExists ? "Voter validated" : "Voter not found",
+      title: voterExists ? "Voter found and validated" : "Voter not found - Please try again",
       description: voterExistsMessage,
       status: voterExists ? "success" : "error",
       duration: voterExists ? 1000 : 4000,
