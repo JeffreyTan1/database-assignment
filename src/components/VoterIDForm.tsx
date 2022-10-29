@@ -57,14 +57,19 @@ const VoterIDForm = (props: Props) => {
   useEffect(() => {
     // check if dom has a script with id addressfinder-script
     const scriptInDOM = document.getElementById("addressfinder-script");
-    if (!scriptInDOM) {
-      const script = document.createElement("script");
-      script.id = "addressfinder-script";
-      script.src = "https://api.addressfinder.io/assets/v3/widget.js";
-      script.async = true;
-      script.onload = loadWidget;
-      document.body.appendChild(script);
+    if (widget) {
+      widget.destroy();
     } 
+
+    if (scriptInDOM) {
+      scriptInDOM.remove();
+    }
+    const script = document.createElement("script");
+    script.id = "addressfinder-script";
+    script.src = "https://api.addressfinder.io/assets/v3/widget.js";
+    script.async = true;
+    script.onload = loadWidget;
+    document.body.appendChild(script);
     
     return () => {
       if (widget) {
