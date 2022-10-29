@@ -4,7 +4,6 @@ import {
   Flex,
   HStack,
   Text,
-  useColorMode,
   useToast,
 } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
@@ -28,8 +27,6 @@ interface VoterIDValues {
 type CastVotesValues = {candidate_name: string; party_code: string; preference: string}[];
 
 const StepForm = (props: Props) => {
-  const { colorMode } = useColorMode();
-  const settingsBubbleColor = colorMode === "light" ? "#3ad6c450" : "#00a89150";
   const toast = useToast();
   const { nextStep, activeStep } = useSteps({
     initialStep: 0,
@@ -72,7 +69,7 @@ const StepForm = (props: Props) => {
       });
     toast({
       title: notPreviouslyVoted
-        ? "Voter has not voted"
+        ? "Voter has not voted before"
         : "Voter has voted before",
       description: notPreviouslyVotedMessage,
       status: notPreviouslyVoted ? "success" : "error",
@@ -100,7 +97,7 @@ const StepForm = (props: Props) => {
         ...voterIDData,
       });
     toast({
-      title: votesCast ? "Votes cast" : "Votes not cast",
+      title: votesCast ? "Votes cast successfully" : "Error - Votes could not be cast",
       description: votesCastMessage,
       status: votesCast ? "success" : "error",
       duration: votesCast ? 1000 : 4000,
@@ -131,9 +128,7 @@ const StepForm = (props: Props) => {
             </Text>
           ))
         }
- 
       </HStack>
-
       <Steps activeStep={activeStep} labelOrientation="vertical">
         {steps.map(({ label, content }) => (
           <Step label={label} key={label}>
