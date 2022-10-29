@@ -79,8 +79,6 @@ export const castVotes = async (payload: any) => {
     candidates: payloadCandidates,
   };
 
-  console.log(validPayload);
-
   const res = await fetch(
     "https://titan.csit.rmit.edu.au/~s3851781/cast_votes.php",
     {
