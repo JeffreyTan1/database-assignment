@@ -34,7 +34,7 @@ const theme = extendTheme({
 
 const App = () => {
   const [stepFormRenderCount, setStepFormRenderCount] = useState(0);
-  const [activeElectionCode, setActiveElectionCode] = useState(null);
+  const [activeElectionCode, setActiveElectionCode] = useState("1");
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [targetTable, setTargetTable] = useState('');
 
@@ -47,17 +47,6 @@ const App = () => {
     setShowAdminModal(true);
     setTargetTable(table);
   };
-  
-
-  const settingsFormik = useFormik({
-    initialValues: {
-      election_code: "",
-    },
-    onSubmit: (values) => {
-      setActiveElectionCode(values.election_code);
-      setStepFormRenderCount((prev: number) => prev + 1);
-    },
-  });
 
   return (
     <ChakraProvider theme={theme}>
@@ -132,22 +121,6 @@ const App = () => {
           <Text fontSize={"lg"} fontWeight={"bold"}>
             Admin Panel
           </Text>
-          <form onSubmit={settingsFormik.handleSubmit}>
-            <Flex alignItems={"end"} gap={5}>
-              <FormControl id="election_code" isRequired>
-                <FormLabel>Election Code</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="Election Code"
-                  value={settingsFormik.values.election_code}
-                  onChange={settingsFormik.handleChange}
-                />
-              </FormControl>
-              <Button type="submit" colorScheme="teal" w={"10%"}>
-                Set
-              </Button>
-            </Flex>
-          </form>
           <Text decoration={"underline"} textUnderlineOffset={3} my={3}>
             View Tables
           </Text>
