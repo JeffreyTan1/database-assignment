@@ -38,7 +38,7 @@ const VoterIDForm = (props: Props) => {
     onSubmit: (values) => {
       const address_line_1 = values.address_line_1;
       const address_line_2 = values.address_line_2;
-      const address_combined = address_line_2 ? `${address_line_1} ${address_line_2}` : address_line_1;
+      const address_combined = address_line_2 ? `${address_line_1}, ${address_line_2}` : address_line_1;
       const residential_address = [address_combined + ",", values.suburb, values.state, values.postcode].filter(Boolean).join(' ');
 
       const transformedValues = {
