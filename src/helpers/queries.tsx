@@ -1,6 +1,6 @@
 export const doesVoterExist = async (payload: object) => {
   const res = await fetch(
-    "https://titan.csit.rmit.edu.au/~s3851781/valid_voter.php",
+    "https://titan.csit.rmit.edu.au/~s3851781/DBA/asg4/valid_voter.php",
     {
       method: "POST",
       headers: {
@@ -20,7 +20,7 @@ export const doesVoterExist = async (payload: object) => {
 
 export const hasNotPreviouslyVoted = async (payload: object) => {
   const res = await fetch(
-    "https://titan.csit.rmit.edu.au/~s3851781/previously_voted.php",
+    "https://titan.csit.rmit.edu.au/~s3851781/DBA/asg4/previously_voted.php",
     {
       method: "POST",
       headers: {
@@ -39,7 +39,7 @@ export const hasNotPreviouslyVoted = async (payload: object) => {
 
 export const getCandidates = async (payload: object) => {
   const res = await fetch(
-    "https://titan.csit.rmit.edu.au/~s3851781/get_candidates.php",
+    "https://titan.csit.rmit.edu.au/~s3851781/DBA/asg4/get_candidates.php",
     {
       method: "POST",
       headers: {
@@ -80,7 +80,7 @@ export const castVotes = async (payload: any) => {
   };
 
   const res = await fetch(
-    "https://titan.csit.rmit.edu.au/~s3851781/cast_votes.php",
+    "https://titan.csit.rmit.edu.au/~s3851781/DBA/asg4/cast_votes.php",
     {
       method: "POST",
       headers: {

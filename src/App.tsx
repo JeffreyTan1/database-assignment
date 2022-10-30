@@ -59,7 +59,7 @@ const App = () => {
             <ModalBody>
               <iframe
                 title="admin"
-                src={`https://titan.csit.rmit.edu.au/~s3851781/view_table.php?table=${targetTable}`}
+                src={`https://titan.csit.rmit.edu.au/~s3851781/DBA/asg4/view_table.php?table=${targetTable}`}
                 width="100%"
                 height="100%"
               />
