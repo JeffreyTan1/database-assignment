@@ -63,11 +63,11 @@ export const castVotes = async (payload: any) => {
   for (const candidate of payloadCandidates) {
     const preference = candidate.preference;
     if (preference === "") {
-      candidate.preference = -999;
+      candidate.preference = 0;
     } else {
       const parsedPreference = parseInt(preference);
       if (isNaN(parsedPreference)) {
-        candidate.preference = -999;
+        candidate.preference = 0;
       } else {
         candidate.preference = parsedPreference;
       }
