@@ -1,0 +1,31 @@
+VOTER_TITLE,VOTER_F_NAME,VOTER_M_NAMES,VOTER_L_NAME,VOTER_GENDER,VOTER_DOB,VOTER_R_ADDRESS,VOTER_P_ADDRESS,VOTER_DAYTIME_PHONE_NUM,VOTER_MOBILE_PHONE_NUM,VOTER_EMAIL,ELECTORATE_NAME
+,Michael,,Scott,Male,15-Feb-65,"19 Stocks Street, GOLDEN POINT VIC 3350",,,,,Ballarat
+,Triss,,Merigold,Female,23-Apr-90,"19 Stocks Street, GOLDEN POINT VIC 3350",,,,,Ballarat
+,Dio,,Brando,Male,4-Sep-90,"19 Stocks Street, GOLDEN POINT VIC 3350",,,,,Ballarat
+,Jotaro,,Kujo,Male,11-Mar-00,"19 Stocks Street, GOLDEN POINT VIC 3350",,,,,Ballarat
+,Frodo,,Baggins,Male,30-Dec-10,"19 Stocks Street, GOLDEN POINT VIC 3350",,,,,Ballarat
+,Suzie,,Smith,Female,23-Apr-70,"19 Stocks Street, GOLDEN POINT VIC 3350",,,,,Ballarat
+,Olivia,,Rodrigo,Female,19-Nov-95,"19 Stocks Street, GOLDEN POINT VIC 3350",,,,,Ballarat
+,Rachael,,May,Female,12-Jun-00,"19 Stocks Street, GOLDEN POINT VIC 3350",,,,,Ballarat
+,Hugh,,Jackman,Male,23-Dec-70,"19 Stocks Street, GOLDEN POINT VIC 3350",,,,,Ballarat
+,Leslie,,Knope,Female,1-Jan-77,"19 Stocks Street, GOLDEN POINT VIC 3350",,,,,Ballarat
+,Andrew,,Lockhart,Male,15-Feb-65,"2 Fry Street, GRAFTON NSW 2460",,,,,Page
+,Alicia,,Keyes,Female,23-Apr-90,"2 Fry Street, GRAFTON NSW 2460",,,,,Page
+,Jonathon,,Joestar,Male,4-Sep-90,"2 Fry Street, GRAFTON NSW 2460",,,,,Page
+,Jean-Pierre,,Polnareff,Male,11-Mar-00,"2 Fry Street, GRAFTON NSW 2460",,,,,Page
+,Samwise,,Gamgee,Male,30-Dec-10,"2 Fry Street, GRAFTON NSW 2460",,,,,Page
+,Joanna,,Freeman,Female,23-Apr-70,"2 Fry Street, GRAFTON NSW 2460",,,,,Page
+,Patricia,,Rock,Female,19-Nov-95,"2 Fry Street, GRAFTON NSW 2460",,,,,Page
+,Vanessa,,Williams,Female,12-Jun-00,"2 Fry Street, GRAFTON NSW 2460",,,,,Page
+,Tyrone,,Lewis,Male,23-Dec-70,"2 Fry Street, GRAFTON NSW 2460",,,,,Page
+,Jessica,,Teal,Female,1-Jan-77,"2 Fry Street, GRAFTON NSW 2460",,,,,Page
+,Saul,,Goodman,Male,15-Feb-65,"12 High Street, GEORGETOWN QLD 4871",,,,,Kennedy
+,Kim,,Wexler,Female,23-Apr-90,"12 High Street, GEORGETOWN QLD 4871",,,,,Kennedy
+,Mike,,Wizawski,Male,4-Sep-90,"12 High Street, GEORGETOWN QLD 4871",,,,,Kennedy
+,Mohammed,,Avdol,Male,11-Mar-00,"12 High Street, GEORGETOWN QLD 4871",,,,,Kennedy
+,Hikaru,,Nakamura,Male,30-Dec-10,"12 High Street, GEORGETOWN QLD 4871",,,,,Kennedy
+,Helen,,Proud,Female,23-Apr-70,"12 High Street, GEORGETOWN QLD 4871",,,,,Kennedy
+,Laura,,Bean,Female,19-Nov-95,"12 High Street, GEORGETOWN QLD 4871",,,,,Kennedy
+,Nina,,Franks,Female,12-Jun-00,"12 High Street, GEORGETOWN QLD 4871",,,,,Kennedy
+,Will,,Smith,Male,23-Dec-70,"12 High Street, GEORGETOWN QLD 4871",,,,,Kennedy
+,Lucy,,Parker,Female,1-Jan-77,"12 High Street, GEORGETOWN QLD 4871",,,,,Kennedy
